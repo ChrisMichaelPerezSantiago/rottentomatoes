@@ -1,7 +1,9 @@
 import _ from 'lodash'
 import qs from 'qs'
 
-const { chain, get, size, defaultTo } = _
+import { BrowseFilter } from '@/types'
+
+const { chain, get, size, defaultTo, compact, join, isEmpty } = _
 
 export default class Toolkit {
   static buildQuery = (obj: any) => {
@@ -45,5 +47,39 @@ export default class Toolkit {
     }
 
     return `https://www.rottentomatoes.com/napi/videos?emsId=${emsId}&publicId=${publicId}&type=${type}`
+  }
+
+  static buildBrowseFilter = ({ categories, genres, ratings, audience, critics, affiliates, sortBy, pagination }: BrowseFilter): string => {
+    const categorySegment = defaultTo(`${categories}`, null);
+    const sortSegment = sortBy
+
+    const generateSegment = (key: string, values: string[] | null): string | null =>
+      values && !isEmpty(values) ? `${key}:${join(values, ',')}` : null;
+
+    const filterSegments = {
+      genres,
+      ratings,
+      audience,
+      critics,
+      affiliates
+    };
+
+    const optionalFilterSegments = Object.keys(filterSegments).reduce((acc, key) => {
+      const segment = generateSegment(key, filterSegments[key]);
+      if (segment) acc.push(segment);
+      return acc;
+    }, [] as string[]);
+
+    let query = null;
+
+    const containDefaultFilters = categories && sortBy && !(isEmpty(genres) || isEmpty(ratings) || isEmpty(audience) || isEmpty(critics) || isEmpty(affiliates));
+
+    if (containDefaultFilters) {
+      query = compact([categorySegment, sortSegment]).join('/');
+    } else {
+      query = `${categorySegment}/${compact(optionalFilterSegments.concat(sortSegment)).join('~')}`
+    }
+
+    return `${query}?${Toolkit.buildQuery({ page: pagination.page })}`;
   }
 }

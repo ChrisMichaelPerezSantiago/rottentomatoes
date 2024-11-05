@@ -1,6 +1,6 @@
-import Toolkit from '@/utils/Toolkit'
-
 import { Effect } from 'effect'
+
+import Toolkit from '@/utils/Toolkit'
 import type { CriticMediaType, SearchURLParams } from '@/types'
 import HttpClientService from './HttpClientService'
 
@@ -59,6 +59,22 @@ export default {
   getCritic: (id: string, criticMediaType: CriticMediaType) => {
     return Effect.gen(function* () {
       const queryString = `${id}/${criticMediaType}`
+
+      const httpClientService = yield * HttpClientService
+      return yield * httpClientService.makeRequest(queryString, 'text')
+    }).pipe(
+      Effect.provide(
+        HttpClientService.Live({
+          baseUrl: endpoint,
+        }),
+      ),
+      Effect.runPromise,
+    )
+  },
+
+  browse: (filters: string) => {
+    return Effect.gen(function* () {
+      const queryString = `browse/${filters}`
 
       const httpClientService = yield * HttpClientService
       return yield * httpClientService.makeRequest(queryString, 'text')

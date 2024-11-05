@@ -1,5 +1,7 @@
 import { Schema } from 'effect'
 
+import { AFFILIATES, AUDIENCE, CRITICS, GENRES, RATINGS } from '@/const'
+
 const HttpClientConfigSchema = Schema.Struct({
   baseUrl: Schema.String,
 })
@@ -10,6 +12,31 @@ const responseTypeSchema = Schema.Union(
   Schema.Literal('blob'),
   Schema.Literal('arrayBuffer'),
 )
+
+const BrowseCategories = Schema.Union(
+  Schema.Literal('movies_in_theaters'),
+  Schema.Literal('movies_at_home'),
+  Schema.Literal('movies_coming_soon'),
+  Schema.Literal('tv_series_browse'),
+)
+
+const BrowseSortBy = Schema.Union(
+  Schema.Literal('sort:popular'),
+  Schema.Literal('sort:newest'),
+  Schema.Literal('sort:top_box_office'),
+  Schema.Literal('sort:a_z'),
+  Schema.Literal('sort:critic_highest'),
+  Schema.Literal('sort:critic_lowest'),
+  Schema.Literal('sort:audience_highest'),
+  Schema.Literal('sort:audience_lowest'),
+)
+
+const BrowsePagination = Schema.Struct({
+  page: Schema.Number.pipe(
+    Schema.propertySignature,
+    Schema.withConstructorDefault(() => 1)
+  ),
+})
 
 const CriticMediaTypeSchema = Schema.Union(
   Schema.Literal('movies'),
@@ -100,8 +127,21 @@ const CriticsSchema = Schema.Struct({
   bio: CriticBioSchema,
 })
 
+export const BrowseFilterSchema = Schema.Struct({
+  categories: BrowseCategories,
+  sortBy: BrowseSortBy,
+  pagination: BrowsePagination
+})
+
+type BrowseGenre = typeof GENRES[number];
+type BrowseRating = typeof RATINGS[number];
+type BrowseAudience = typeof AUDIENCE[number];
+type BrowseCritic = typeof CRITICS[number];
+type BrowseAffiliate = typeof AFFILIATES[number];
+
 export type HttpClientConfig = Schema.Schema.Type<typeof HttpClientConfigSchema>
 export type ResponseType = Schema.Schema.Type<typeof responseTypeSchema>
+export type CategoryType = Schema.Schema.Type<typeof BrowseCategories>
 export type CriticMediaType = Schema.Schema.Type<typeof CriticMediaTypeSchema>
 export type SearchURLParams = Schema.Schema.Type<typeof SearchURLParamsSchema>
 export type SearchResult = Schema.Schema.Type<typeof SearchSchema>
@@ -110,3 +150,5 @@ export type TopCritics = Schema.Schema.Type<typeof TopCriticsSchema>
 export type CriticReview = Schema.Schema.Type<typeof CriticReviewSchema>
 export type CriticBio = Schema.Schema.Type<typeof CriticBioSchema>
 export type Critic = Schema.Schema.Type<typeof CriticsSchema>
+export type BrowseFilter = Schema.Schema.Type<typeof BrowseFilterSchema>
+  & { genres?: BrowseGenre[], ratings?: BrowseRating[], audience?: BrowseAudience[], critics?: BrowseCritic[], affiliates?: BrowseAffiliate[] }

@@ -2,6 +2,7 @@ import search from '@/api/search'
 import getExtraContent from '@/api/extracontent'
 import getCritic from '@/api/critic'
 import getTopCritics from '@/api/topcritics'
+import browse from '@/api/browse'
 
 
 // (async function () {
@@ -22,4 +23,9 @@ import getTopCritics from '@/api/topcritics'
 // (async function () {
 //   const row = await getCritic('critics/christopher-kelly', 'movies')
 //   console.log(row)
+// })()
+
+// (async function () {
+//   const rows = await browse({ categories: 'tv_series_browse', audience: ['verified_hot']})
+//   console.log(rows)
 // })()
