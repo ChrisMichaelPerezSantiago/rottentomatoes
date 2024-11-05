@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "baseUrl": "./src",
+    "module": "ESNext",
+    "moduleResolution": "Bundler", // Set baseUrl to the src folder
+    "paths": {
+      "@/*": ["*"] // Map @ to the src folder
+    },
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
+  }
+}

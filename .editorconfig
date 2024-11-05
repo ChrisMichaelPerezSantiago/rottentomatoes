@@ -1,0 +1,21 @@
+# Top-most EditorConfig file
+root = true
+
+# Match all files
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Specific settings for JavaScript files
+[*.{js,jsx}]
+quote_type = single
+max_line_length = 80
+
+# Specific settings for TypeScript files
+[*.{ts,tsx}]
+quote_type = single
+max_line_length = 80

@@ -1,0 +1,102 @@
+{
+  "name": "rottentomatoes",
+  "type": "module",
+  "version": "0.0.0",
+  "packageManager": "pnpm@9.9.0",
+  "description": "This unofficial library provides access to movie and TV show information from Rotten Tomatoes. It enables users to retrieve various details such as ratings, reviews, and additional insights, facilitating seamless interaction with Rotten Tomatoes data.",
+  "author": "chrisperezsantiago1@gmail.com",
+  "license": "MIT",
+  "homepage": "https://github.com/ChrisMichaelPerezSantiago/rottentomatoes#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChrisMichaelPerezSantiago/rottentomatoes.git"
+  },
+  "keywords": [
+    "rottentomatoes",
+    "rottentomatoes api",
+    "movie ratings",
+    "tv ratings",
+    "movie reviews",
+    "critic reviews",
+    "movie data",
+    "tv show data",
+    "media metadata",
+    "film ratings",
+    "tv show ratings",
+    "entertainment data",
+    "film reviews",
+    "unofficial api",
+    "movie library",
+    "rottentomatoes scraping",
+    "ratings and reviews",
+    "media library",
+    "film database",
+    "tv show database",
+    "web scraping",
+    "media information",
+    "critics"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "lint": "eslint .",
+    "prepublishOnly": "nr build",
+    "release": "bumpp && npm publish",
+    "start": "esno src/index.ts",
+    "playground": "esno playground/index.ts",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepare": "simple-git-hooks"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.3.2",
+    "@antfu/ni": "^0.23.0",
+    "@antfu/utils": "^0.7.10",
+    "@types/cheerio": "^0.22.35",
+    "@types/lodash": "^4.17.13",
+    "@types/node": "^22.5.4",
+    "@types/qs": "^6.9.16",
+    "bumpp": "^9.5.2",
+    "cheerio": "^1.0.0",
+    "effect": "^3.10.8",
+    "eslint": "^9.9.1",
+    "esno": "^4.7.0",
+    "lint-staged": "^15.2.10",
+    "lodash": "^4.17.21",
+    "pnpm": "^9.9.0",
+    "qs": "^6.13.0",
+    "simple-git-hooks": "^2.11.1",
+    "typescript": "^5.5.4",
+    "unbuild": "^2.0.0",
+    "vite": "^5.4.3",
+    "vitest": "^2.0.5"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
