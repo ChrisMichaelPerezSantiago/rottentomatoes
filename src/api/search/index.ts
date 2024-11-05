@@ -1,10 +1,10 @@
-import RottenTomatoeService from '@/services/RottenTomatoeService'
-import Toolkit from '@/utils/Toolkit'
-import * as cheerio from 'cheerio'
-
 import { Effect } from 'effect'
+import * as cheerio from 'cheerio'
 import _ from 'lodash'
+
+import RottenTomatoeService from '@/services/RottenTomatoeService'
 import type { SearchResult } from '@/types'
+import Toolkit from '@/utils/Toolkit'
 
 const { load } = cheerio
 const { defaultTo, map, split, parseInt, includes } = _
