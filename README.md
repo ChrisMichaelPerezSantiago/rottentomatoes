@@ -93,7 +93,6 @@ import { getExtraContent } from 'rottentomatoes'
 const id = 'm/harry_potter_and_the_deathly_hallows_part_2'
 const result = await getExtraContent(id)
 ```
-
 ## ExtraContent Response Schema
 
 The `ExtraContentSchema` defines the structure for the additional content retrieved for a media item. Below are the details of each field in the schema:
@@ -118,10 +117,17 @@ The `ExtraContentSchema` defines the structure for the additional content retrie
 | `originalLanguage`        | `NullOr(String)`                                   | The original language in which the media item was produced.        |
 | `releaseDateTheaters`     | `NullOr(String)`                                   | The release date of the media item in theaters.                   |
 | `releaseDateStreaming`    | `NullOr(String)`                                   | The release date of the media item for streaming.                 |
-| `boxOfficeGross`         | `NullOr(String)`                                   | The total box office gross revenue of the media item.              |
+| `boxOfficeGross`          | `NullOr(String)`                                   | The total box office gross revenue of the media item.              |
 | `runtime`                 | `NullOr(String)`                                   | The runtime duration of the media item.                            |
 | `soundMix`                | `NullOr(Array)`                                    | An array of sound mixes used in the media item.                   |
 | `promoEndpoint`           | `NullOr(String)`                                   | The promo video endpoint (m3u8) for the media item.               |
+| `episodes`                | `NullOr(Array)`                                    | An array of episodes for TV shows, where each episode includes:    |
+|                           | - `title: String`                                  | The title of the episode.                                          |
+|                           | - `description: String`                            | A brief description of the episode's plot or storyline.            |
+|                           | - `airDate: String`                                | The air date of the episode.                                       |
+|                           | - `episodeNumber: Number`                          | The episode number within the season.                              |
+|                           | - `seasonNumber: Number`                           | The season number to which the episode belongs.                    |
+
 
 ## Get TopCritics
 
