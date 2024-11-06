@@ -128,7 +128,7 @@ const ExtraContentSchema = Schema.Struct({
       airDate: Schema.NullOr(Schema.String),
       description: Schema.NullOr(Schema.String),
       image: Schema.NullOr(Schema.String),
-    })
+    }),
   ),
   screenwriter: Schema.NullOr(Schema.Array(Schema.String)),
   distributor: Schema.NullOr(Schema.String),

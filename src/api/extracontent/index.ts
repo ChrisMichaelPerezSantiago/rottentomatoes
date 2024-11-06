@@ -214,7 +214,7 @@ function parser(html: string): ExtraContent {
 
 function helper(html: string) {
   return Effect.gen(function* () {
-    const result = yield* Effect.async<ExtraContent, Error>((callback) => {
+    const result = yield * Effect.async<ExtraContent, Error>((callback) => {
       Effect.try({
         try: async () => {
           const result = parser(html)

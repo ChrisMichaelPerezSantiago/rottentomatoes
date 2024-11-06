@@ -28,8 +28,8 @@ const filter = {
   pagination: {
     page: 1
   },
-};
-const results = await browse(filter);
+}
+const results = await browse(filter)
 ```
 
 ## Browse Filter Schema
@@ -46,7 +46,6 @@ The `BrowseFilterSchema` defines the structure of the data used in the `browse` 
 | `sortBy`     | `BrowseSortBy`             | `'sort:popular', 'sort:newest', 'sort:top_box_office', 'sort:a_z', 'sort:critic_highest', 'sort:critic_lowest', 'sort:audience_highest', 'sort:audience_lowest'` | The sort option for the results. Choose one value as a string.           |
 | `pagination` | `BrowsePagination`         | `{ page: number }`                                   | An object specifying pagination options such as `page` and `limit`.     |
 
-
 ### Browse Response Schema
 
 The response from the `browse` function follows the structure outlined below, which includes media details such as the ID, title, scores, media type, and more.
@@ -60,8 +59,6 @@ The response from the `browse` function follows the structure outlined below, wh
 | `mediaType`     | `NullOr(String)`             | The type of media (e.g., "movie" or "tv"). May be `null` if not available. |
 | `poster`        | `NullOr(String)`             | The URL of the media poster image. May be `null` if not available. |
 | `releaseDate`   | `String`                     | The release date of the media item, formatted as a string.       |
-
-
 
 ## Search for Movies or TV Shows
 Utilize the search function to find movies or TV shows by their title. This function returns a list of relevant results based on the search query.
