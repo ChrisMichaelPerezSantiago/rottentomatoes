@@ -64,7 +64,7 @@ The response from the `browse` function follows the structure outlined below, wh
 Utilize the search function to find movies or TV shows by their title. This function returns a list of relevant results based on the search query.
 
 ```typescript
-import { search } from 'rottentomatoes'
+import { search } from 'unofficial-rottentomatoes'
 
 const q = 'Harry Potter and the deathly hallows 2'
 const results = await search(q)
@@ -88,7 +88,7 @@ The `SearchSchema` defines the structure of the data returned by the search API.
 Utilize the getExtraContent function to retrieve additional information about a movie or TV show.
 
 ```typescript
-import { getExtraContent } from 'rottentomatoes'
+import { getExtraContent } from 'unofficial-rottentomatoes'
 
 const id = 'm/harry_potter_and_the_deathly_hallows_part_2'
 const result = await getExtraContent(id)
@@ -128,11 +128,10 @@ The `ExtraContentSchema` defines the structure for the additional content retrie
 |                           | - `episodeNumber: Number`                          | The episode number within the season.                              |
 |                           | - `seasonNumber: Number`                           | The season number to which the episode belongs.                    |
 
-
 ## Get TopCritics
 
 ```typescript
-import { getTopCritics } from 'rottentomatoes'
+import { getTopCritics } from 'unofficial-rottentomatoes'
 
 const id = 'm/harry_potter_and_the_deathly_hallows_part_2'
 const row = await getTopCritics(id)
@@ -156,7 +155,7 @@ The `TopCriticsSchema` defines the structure for top critic reviews of a specifi
 ## Get Critic
 
 ```typescript
-import { getCritic } from 'rottentomatoes'
+import { getCritic } from 'unofficial-rottentomatoes'
 
 const reviewerId = 'critics/christopher-kelly'
 const criticMediaType = 'movies'
