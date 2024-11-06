@@ -39,7 +39,6 @@ function parser(element: cheerio.Element): SearchResult {
   }
 };
 
-// eslint-disable-next-line ts/explicit-function-return-type
 function helper(html: string) {
   return Effect.gen(function* () {
     const result = yield * Effect.async<SearchResult[], Error>((callback) => {
@@ -61,7 +60,6 @@ function helper(html: string) {
   }).pipe(Effect.runPromise)
 }
 
-// eslint-disable-next-line ts/explicit-function-return-type
 export default async (query: string) => {
   const htmlResponse = await RottenTomatoeService.search({
     search: query,

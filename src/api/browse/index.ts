@@ -41,7 +41,6 @@ function parser(element: cheerio.Element): Browse {
   }
 }
 
-// eslint-disable-next-line ts/explicit-function-return-type
 function helper(html: string) {
   return Effect.gen(function* () {
     const result = yield * Effect.async<Browse[], Error>((callback) => {
@@ -73,7 +72,7 @@ export default async ({
   sortBy = 'sort:popular',
   pagination = { page: 1 },
   ...props
-// eslint-disable-next-line ts/explicit-function-return-type
+
 }: BrowseFilter) => {
   const query = Toolkit.buildBrowseFilter({
     categories,

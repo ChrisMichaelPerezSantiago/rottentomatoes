@@ -6,7 +6,6 @@ import type { BrowseFilter } from '../types'
 const { chain, get, size, defaultTo, compact, join, isEmpty } = _
 
 export default class Toolkit {
-  // eslint-disable-next-line ts/explicit-function-return-type
   static buildQuery = (obj: any) => {
     const query: any = {}
     for (const key in obj) {

@@ -53,7 +53,6 @@ function bioParser(html: string): CriticBio {
   return { name, image, approvalStatus, publications: publicationList, criticsGroup: criticsGroupName }
 }
 
-// eslint-disable-next-line ts/explicit-function-return-type
 function helper(html: string) {
   return Effect.gen(function* () {
     const result = yield * Effect.async<Critic, Error>((callback) => {
@@ -77,7 +76,6 @@ function helper(html: string) {
   }).pipe(Effect.runPromise)
 }
 
-// eslint-disable-next-line ts/explicit-function-return-type
 export default async (id: string, criticMediaType: CriticMediaType) => {
   const htmlResponse = await RottenTomatoeService.getCritic(id, criticMediaType)
 
