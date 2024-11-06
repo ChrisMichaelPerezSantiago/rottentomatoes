@@ -26,6 +26,6 @@ import browse from '@/api/browse'
 // })()
 
 // (async function () {
-//   const rows = await browse({ categories: 'tv_series_browse', audience: ['verified_hot']})
+//   const rows = await browse({ ratings: ['pg_13']})
 //   console.log(rows)
 // })()

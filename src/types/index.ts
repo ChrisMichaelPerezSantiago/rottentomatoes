@@ -1,35 +1,81 @@
 import { Schema } from 'effect'
 
-import { AFFILIATES, AUDIENCE, CRITICS, GENRES, RATINGS } from '@/const'
-
 const HttpClientConfigSchema = Schema.Struct({
   baseUrl: Schema.String,
 })
 
-const responseTypeSchema = Schema.Union(
-  Schema.Literal('json'),
-  Schema.Literal('text'),
-  Schema.Literal('blob'),
-  Schema.Literal('arrayBuffer'),
-)
+const responseTypeSchema = Schema.Literal('json', 'text', 'blob', 'arrayBuffer');
 
-const BrowseCategories = Schema.Union(
-  Schema.Literal('movies_in_theaters'),
-  Schema.Literal('movies_at_home'),
-  Schema.Literal('movies_coming_soon'),
-  Schema.Literal('tv_series_browse'),
+const BrowseCategories = Schema.Literal(
+  'movies_in_theaters',
+  'movies_at_home',
+  'movies_coming_soon',
+  'tv_series_browse'
+);
+const BrowseSortBy = Schema.Literal(
+  'sort:popular',
+  'sort:newest',
+  'sort:top_box_office',
+  'sort:a_z',
+  'sort:critic_highest',
+  'sort:critic_lowest',
+  'sort:audience_highest',
+  'sort:audience_lowest'
+);
+const BrowseGenre = Schema.Literal(
+  'action',
+  'adventure',
+  'animation',
+  'anime',
+  'biography',
+  'comedy',
+  'crime',
+  'documentary',
+  'drama',
+  'entertainment',
+  'faith_and_spirituality',
+  'fantasy',
+  'game_show',
+  'health_and_wellness',
+  'history',
+  'holiday',
+  'horror',
+  'house_and_garden',
+  'kids_and_family',
+  'lgbtq',
+  'music',
+  'musical',
+  'mystery_and_thriller',
+  'nature',
+  'news',
+  'reality',
+  'romance',
+  'sci_fi',
+  'short',
+  'soap',
+  'special_interest',
+  'sports',
+  'stand_up',
+  'talk_show',
+  'travel',
+  'variety',
+  'war',
+  'western'
 )
-
-const BrowseSortBy = Schema.Union(
-  Schema.Literal('sort:popular'),
-  Schema.Literal('sort:newest'),
-  Schema.Literal('sort:top_box_office'),
-  Schema.Literal('sort:a_z'),
-  Schema.Literal('sort:critic_highest'),
-  Schema.Literal('sort:critic_lowest'),
-  Schema.Literal('sort:audience_highest'),
-  Schema.Literal('sort:audience_lowest'),
-)
+const BrowseRating = Schema.Literal('g', 'nc_17', 'nr', 'pg', 'pg_13', 'r', 'ur');
+const BrowseAudience = Schema.Literal('spilled', 'upright', 'verified_hot');
+const BrowseAffiliate = Schema.Literal(
+  'apple-tv-plus',
+  'disney-plus',
+  'fandango-at-home',
+  'hulu',
+  'max',
+  'netflix',
+  'paramount-plus',
+  'peacock',
+  'prime-video'
+);
+const BrowseCritic = Schema.Literal('certified_fresh', 'fresh', 'rotten');
 
 const BrowsePagination = Schema.Struct({
   page: Schema.Number.pipe(
@@ -38,10 +84,7 @@ const BrowsePagination = Schema.Struct({
   ),
 })
 
-const CriticMediaTypeSchema = Schema.Union(
-  Schema.Literal('movies'),
-  Schema.Literal('tv'),
-)
+const CriticMediaTypeSchema = Schema.Literal('movies', 'tv')
 
 const SearchURLParamsSchema = Schema.Struct({
   search: Schema.String,
@@ -129,15 +172,14 @@ const CriticsSchema = Schema.Struct({
 
 export const BrowseFilterSchema = Schema.Struct({
   categories: BrowseCategories,
+  genres: Schema.Array(BrowseGenre),
+  ratings: Schema.Array(BrowseRating),
+  audience: Schema.Array(BrowseAudience),
+  critics: Schema.Array(BrowseCritic),
+  affiliates: Schema.Array(BrowseAffiliate),
   sortBy: BrowseSortBy,
   pagination: BrowsePagination
 })
-
-type BrowseGenre = typeof GENRES[number];
-type BrowseRating = typeof RATINGS[number];
-type BrowseAudience = typeof AUDIENCE[number];
-type BrowseCritic = typeof CRITICS[number];
-type BrowseAffiliate = typeof AFFILIATES[number];
 
 export type HttpClientConfig = Schema.Schema.Type<typeof HttpClientConfigSchema>
 export type ResponseType = Schema.Schema.Type<typeof responseTypeSchema>
@@ -151,4 +193,3 @@ export type CriticReview = Schema.Schema.Type<typeof CriticReviewSchema>
 export type CriticBio = Schema.Schema.Type<typeof CriticBioSchema>
 export type Critic = Schema.Schema.Type<typeof CriticsSchema>
 export type BrowseFilter = Schema.Schema.Type<typeof BrowseFilterSchema>
-  & { genres?: BrowseGenre[], ratings?: BrowseRating[], audience?: BrowseAudience[], critics?: BrowseCritic[], affiliates?: BrowseAffiliate[] }
