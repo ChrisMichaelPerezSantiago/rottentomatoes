@@ -1,7 +1,7 @@
 {
   "name": "rottentomatoes",
   "type": "module",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "packageManager": "pnpm@9.9.0",
   "description": "This unofficial library provides access to movie and TV show information from Rotten Tomatoes. It enables users to retrieve various details such as ratings, reviews, and additional insights, facilitating seamless interaction with Rotten Tomatoes data.",
   "author": "chrisperezsantiago1@gmail.com",
