@@ -8,6 +8,20 @@ Project in progress ...
 - [x] `Node.js >= 18.x`
 - [x] `Yarn >= 1.x`
 
+## Installation
+
+### Using npm
+
+```bash
+npm install unofficial-rottentomatoes
+```
+
+### Using yarn
+
+```bash
+yarn add unofficial-rottentomatoes
+```
+
 # 📚 Documentation
 
 ### Browse Function Documentation
