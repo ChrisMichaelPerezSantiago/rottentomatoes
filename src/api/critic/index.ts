@@ -1,8 +1,8 @@
-import { Effect } from 'effect'
-import * as cheerio from 'cheerio'
-import _ from 'lodash'
-
 import RottenTomatoeService from '@/services/RottenTomatoeService'
+import * as cheerio from 'cheerio'
+import { Effect } from 'effect'
+
+import _ from 'lodash'
 import type { Critic, CriticBio, CriticMediaType, CriticReview } from '@/types'
 
 const { load } = cheerio

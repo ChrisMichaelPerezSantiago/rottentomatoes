@@ -1,34 +1,34 @@
-import { Effect } from 'effect';
-import * as cheerio from 'cheerio';
-import _ from 'lodash';
+import RottenTomatoeService from '@/services/RottenTomatoeService'
+import Toolkit from '@/utils/Toolkit'
+import * as cheerio from 'cheerio'
 
-import RottenTomatoeService from '@/services/RottenTomatoeService';
-import type { BrowseFilter } from '@/types';
-import Toolkit from '@/utils/Toolkit';
+import { Effect } from 'effect'
+import _ from 'lodash'
+import type { Browse, BrowseFilter } from '@/types'
 
-const { load } = cheerio;
-const { defaultTo, map, parseInt, includes, trimStart } = _;
+const { load } = cheerio
+const { defaultTo, map, parseInt, includes, trimStart } = _
 
-function parser(element: cheerio.Element) {
-  const $ = cheerio.load(element);
+function parser(element: cheerio.Element): Browse {
+  const $ = cheerio.load(element)
 
   const title = defaultTo(
     $(element).find('span[data-qa="discovery-media-list-item-title"]').text().trim(),
     null,
-  );
+  )
 
-  const criticsScoreStr = $(element).find('rt-text[slot="criticsScore"]').text().trim();
-  const audienceScoreStr = $(element).find('rt-text[slot="audienceScore"]').text().trim();
-  const criticsScore = criticsScoreStr ? parseInt(criticsScoreStr.replace('%', ''), 10) : null;
-  const audienceScore = audienceScoreStr ? parseInt(audienceScoreStr.replace('%', ''), 10) : null;
+  const criticsScoreStr = $(element).find('rt-text[slot="criticsScore"]').text().trim()
+  const audienceScoreStr = $(element).find('rt-text[slot="audienceScore"]').text().trim()
+  const criticsScore = criticsScoreStr ? parseInt(criticsScoreStr.replace('%', ''), 10) : null
+  const audienceScore = audienceScoreStr ? parseInt(audienceScoreStr.replace('%', ''), 10) : null
 
-  const poster = defaultTo($(element).find('rt-img').attr('src'), null);
-  const releaseDate = $(element).find('span[data-qa="discovery-media-list-item-start-date"]').text().trim();
+  const poster = defaultTo($(element).find('rt-img').attr('src'), null)
+  const releaseDate = $(element).find('span[data-qa="discovery-media-list-item-start-date"]').text().trim()
 
-  const href = $(element).find('a[data-track="scores"]').attr('href') || '';
-  const id = href ? trimStart(href, '/') : null;
+  const href = $(element).find('a[data-track="scores"]').attr('href') || ''
+  const id = href ? trimStart(href, '/') : null
 
-  const mediaType = includes(href, '/m/') ? 'movie' : includes(href, '/tv/') ? 'tv' : null;
+  const mediaType = includes(href, '/m/') ? 'movie' : includes(href, '/tv/') ? 'tv' : null
 
   return {
     id,
@@ -38,28 +38,28 @@ function parser(element: cheerio.Element) {
     mediaType,
     poster,
     releaseDate,
-  };
+  }
 }
 
 function helper(html: string) {
   return Effect.gen(function* () {
-    const result = yield* Effect.async<any[], Error>((callback) => {
+    const result = yield * Effect.async<Browse[], Error>((callback) => {
       Effect.try({
         try: async () => {
-          const $ = load(html);
-          const rows = $('div[data-qa="discovery-media-list-item"]');
+          const $ = load(html)
+          const rows = $('div[data-qa="discovery-media-list-item"]')
 
-          const results = map(rows, parser);
-          callback(Effect.succeed(results));
+          const results = map(rows, parser)
+          callback(Effect.succeed(results))
         },
         catch: (error: Error) => {
-          callback(Effect.fail(error));
+          callback(Effect.fail(error))
         },
-      }).pipe(Effect.runPromise);
-    });
+      }).pipe(Effect.runPromise)
+    })
 
-    return result;
-  }).pipe(Effect.runPromise);
+    return result
+  }).pipe(Effect.runPromise)
 }
 
 export default async ({
@@ -82,15 +82,15 @@ export default async ({
     affiliates,
     sortBy,
     pagination,
-    ...props
+    ...props,
   })
 
-  const htmlResponse = await RottenTomatoeService.browse(query);
+  const htmlResponse = await RottenTomatoeService.browse(query)
 
   if (!htmlResponse) {
-    return [];
+    return []
   }
 
-  const rows = await helper(htmlResponse as string);
-  return rows;
-};
+  const rows = await helper(htmlResponse as string)
+  return rows
+}

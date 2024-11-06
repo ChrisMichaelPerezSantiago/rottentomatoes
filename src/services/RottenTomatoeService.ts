@@ -1,6 +1,6 @@
-import { Effect } from 'effect'
-
 import Toolkit from '@/utils/Toolkit'
+
+import { Effect } from 'effect'
 import type { CriticMediaType, SearchURLParams } from '@/types'
 import HttpClientService from './HttpClientService'
 

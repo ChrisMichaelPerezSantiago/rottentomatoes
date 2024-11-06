@@ -4,14 +4,14 @@ const HttpClientConfigSchema = Schema.Struct({
   baseUrl: Schema.String,
 })
 
-const responseTypeSchema = Schema.Literal('json', 'text', 'blob', 'arrayBuffer');
+const responseTypeSchema = Schema.Literal('json', 'text', 'blob', 'arrayBuffer')
 
 const BrowseCategories = Schema.Literal(
   'movies_in_theaters',
   'movies_at_home',
   'movies_coming_soon',
-  'tv_series_browse'
-);
+  'tv_series_browse',
+)
 const BrowseSortBy = Schema.Literal(
   'sort:popular',
   'sort:newest',
@@ -20,8 +20,8 @@ const BrowseSortBy = Schema.Literal(
   'sort:critic_highest',
   'sort:critic_lowest',
   'sort:audience_highest',
-  'sort:audience_lowest'
-);
+  'sort:audience_lowest',
+)
 const BrowseGenre = Schema.Literal(
   'action',
   'adventure',
@@ -60,10 +60,10 @@ const BrowseGenre = Schema.Literal(
   'travel',
   'variety',
   'war',
-  'western'
+  'western',
 )
-const BrowseRating = Schema.Literal('g', 'nc_17', 'nr', 'pg', 'pg_13', 'r', 'ur');
-const BrowseAudience = Schema.Literal('spilled', 'upright', 'verified_hot');
+const BrowseRating = Schema.Literal('g', 'nc_17', 'nr', 'pg', 'pg_13', 'r', 'ur')
+const BrowseAudience = Schema.Literal('spilled', 'upright', 'verified_hot')
 const BrowseAffiliate = Schema.Literal(
   'apple-tv-plus',
   'disney-plus',
@@ -73,14 +73,14 @@ const BrowseAffiliate = Schema.Literal(
   'netflix',
   'paramount-plus',
   'peacock',
-  'prime-video'
-);
-const BrowseCritic = Schema.Literal('certified_fresh', 'fresh', 'rotten');
+  'prime-video',
+)
+const BrowseCritic = Schema.Literal('certified_fresh', 'fresh', 'rotten')
 
 const BrowsePagination = Schema.Struct({
   page: Schema.Number.pipe(
     Schema.propertySignature,
-    Schema.withConstructorDefault(() => 1)
+    Schema.withConstructorDefault(() => 1),
   ),
 })
 
@@ -178,7 +178,17 @@ export const BrowseFilterSchema = Schema.Struct({
   critics: Schema.Array(BrowseCritic),
   affiliates: Schema.Array(BrowseAffiliate),
   sortBy: BrowseSortBy,
-  pagination: BrowsePagination
+  pagination: BrowsePagination,
+})
+
+const BrowseSchema = Schema.Struct({
+  id: Schema.NullOr(Schema.String),
+  title: Schema.NullOr(Schema.String),
+  criticsScore: Schema.NullOr(Schema.NumberFromString),
+  audienceScore: Schema.NullOr(Schema.NumberFromString),
+  mediaType: Schema.NullOr(Schema.String),
+  poster: Schema.NullOr(Schema.String),
+  releaseDate: Schema.String,
 })
 
 export type HttpClientConfig = Schema.Schema.Type<typeof HttpClientConfigSchema>
@@ -193,3 +203,4 @@ export type CriticReview = Schema.Schema.Type<typeof CriticReviewSchema>
 export type CriticBio = Schema.Schema.Type<typeof CriticBioSchema>
 export type Critic = Schema.Schema.Type<typeof CriticsSchema>
 export type BrowseFilter = Schema.Schema.Type<typeof BrowseFilterSchema>
+export type Browse = Schema.Schema.Type<typeof BrowseSchema>

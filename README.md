@@ -1,14 +1,12 @@
 # Unofficial Rotten Tomatoes Library
 This unofficial library provides access to movie and TV show information from Rotten Tomatoes. It enables users to retrieve various details such as ratings, reviews, and additional insights, facilitating seamless interaction with Rotten Tomatoes data.
 
-
 Project in progress ...
 
 ## Prerequisites
 
 - [x] `Node.js >= 18.x`
 - [x] `Yarn >= 1.x`
-
 
 # 📚 Documentation
 
@@ -99,7 +97,6 @@ The `TopCriticsSchema` defines the structure for top critic reviews of a specifi
 | `reviewLink`     | `NullOr(String)`    | URL link to the full review.                                    |
 | `criticPicture`  | `NullOr(String)`    | URL of the critic's picture.                                    |
 
-
 ## Get Critic
 
 ```typescript
@@ -114,8 +111,6 @@ const row = await getCritic(reviewerId, mediaType)
 ## Critic Schema
 
 The `CriticSchema` defines the structure for the data returned by the getCritic function.
-
-
 
 ## CriticsSchema
 
@@ -156,9 +151,6 @@ The `CriticsSchema` combines both the `bio` and `reviews` data structures:
 |-----------|-----------------------------|--------------------------------------------|
 | `reviews` | `Array(CriticReviewSchema)` | Array of individual reviews by the critic. |
 | `bio`     | `CriticBioSchema`           | Biographical information of the critic.    |
-
-
-
 
 ## **:handshake: Contributing**
 

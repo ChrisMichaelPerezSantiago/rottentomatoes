@@ -1,11 +1,9 @@
-
-
-import { Effect } from 'effect'
-import * as cheerio from 'cheerio'
-import _ from 'lodash'
-
 import RottenTomatoeService from '@/services/RottenTomatoeService'
 import Toolkit from '@/utils/Toolkit'
+import * as cheerio from 'cheerio'
+
+import { Effect } from 'effect'
+import _ from 'lodash'
 import type { ExtraContent } from '@/types'
 
 const { load } = cheerio
@@ -39,30 +37,30 @@ function parser(html: string): ExtraContent {
   )
 
   const seasons = $('tile-season').map((_, el) => {
-    const idStr = defaultTo($(el).attr('href'), null);
-    const image = defaultTo($(el).find('rt-img').attr('src'), null);
-    const title = defaultTo($(el).find('rt-text[slot="title"]').text().trim(), null);
+    const idStr = defaultTo($(el).attr('href'), null)
+    const image = defaultTo($(el).find('rt-img').attr('src'), null)
+    const title = defaultTo($(el).find('rt-text[slot="title"]').text().trim(), null)
 
-    const criticsScoreStr = $(el).find('rt-text[slot="criticsScore"]').text().trim();
-    const criticsScore = isEmpty(criticsScoreStr) ? null : Number.parseInt(criticsScoreStr, 10);
+    const criticsScoreStr = $(el).find('rt-text[slot="criticsScore"]').text().trim()
+    const criticsScore = isEmpty(criticsScoreStr) ? null : Number.parseInt(criticsScoreStr, 10)
 
-    const airDateStr = $(el).find('rt-text[slot="airDate"]').text().trim();
-    const airDate = isEmpty(airDateStr) ? null : Number.parseInt(airDateStr, 10);
-    const finalAirDate = !airDate ? null : airDate;
+    const airDateStr = $(el).find('rt-text[slot="airDate"]').text().trim()
+    const airDate = isEmpty(airDateStr) ? null : Number.parseInt(airDateStr, 10)
+    const finalAirDate = !airDate ? null : airDate
 
-    const detailsLinkText = defaultTo($(el).find('rt-text[slot="details"]').text().trim(), null);
+    const detailsLinkText = defaultTo($(el).find('rt-text[slot="details"]').text().trim(), null)
 
-    const id = idStr ? trimStart(idStr, '/') : null;
+    const id = idStr ? trimStart(idStr, '/') : null
 
     return {
-        id,
-        image,
-        title,
-        criticsScore,
-        airDate: finalAirDate,
-        detailsLinkText,
-    };
-  }).get();
+      id,
+      image,
+      title,
+      criticsScore,
+      airDate: finalAirDate,
+      detailsLinkText,
+    }
+  }).get()
 
   const producer = defaultTo(
     $('div[data-qa="item"]')
@@ -191,7 +189,7 @@ function parser(html: string): ExtraContent {
 
 function helper(html: string) {
   return Effect.gen(function* () {
-    const result = yield* Effect.async<ExtraContent, Error>((callback) => {
+    const result = yield * Effect.async<ExtraContent, Error>((callback) => {
       Effect.try({
         try: async () => {
           const result = parser(html)

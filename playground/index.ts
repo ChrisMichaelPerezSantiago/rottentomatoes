@@ -1,10 +1,3 @@
-import search from '@/api/search'
-import getExtraContent from '@/api/extracontent'
-import getCritic from '@/api/critic'
-import getTopCritics from '@/api/topcritics'
-import browse from '@/api/browse'
-
-
 // (async function () {
 //   const rows = await search('Harry Potter and the deathly hallows 2')
 //   console.log(rows)
