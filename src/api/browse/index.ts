@@ -1,10 +1,10 @@
-import RottenTomatoeService from '@/services/RottenTomatoeService'
-import Toolkit from '@/utils/Toolkit'
 import * as cheerio from 'cheerio'
-
 import { Effect } from 'effect'
 import _ from 'lodash'
-import type { Browse, BrowseFilter } from '@/types'
+
+import RottenTomatoeService from '../../services/RottenTomatoeService'
+import Toolkit from '../../utils/Toolkit'
+import type { Browse, BrowseFilter } from '../../types'
 
 const { load } = cheerio
 const { defaultTo, map, parseInt, includes, trimStart } = _
@@ -41,6 +41,7 @@ function parser(element: cheerio.Element): Browse {
   }
 }
 
+// eslint-disable-next-line ts/explicit-function-return-type
 function helper(html: string) {
   return Effect.gen(function* () {
     const result = yield * Effect.async<Browse[], Error>((callback) => {
@@ -72,6 +73,7 @@ export default async ({
   sortBy = 'sort:popular',
   pagination = { page: 1 },
   ...props
+// eslint-disable-next-line ts/explicit-function-return-type
 }: BrowseFilter) => {
   const query = Toolkit.buildBrowseFilter({
     categories,

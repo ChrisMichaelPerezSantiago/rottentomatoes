@@ -1,9 +1,11 @@
 import { Context, Effect, Layer } from 'effect'
 
-import type { HttpClientConfig, ResponseType } from '@/types'
+import type { HttpClientConfig, ResponseType } from '../types'
 
+// eslint-disable-next-line ts/explicit-function-return-type
 function makeHttpClientService(config: HttpClientConfig) {
   return Effect.gen(function* () {
+    // eslint-disable-next-line ts/explicit-function-return-type
     const makeRequest = <T>(endpoint: string, responseType: ResponseType = 'json', options?: RequestInit) =>
       Effect.try({
         try: async () => {
@@ -50,6 +52,7 @@ export default class HttpClientService extends Context.Tag('HttpClientService')<
   HttpClientService,
   Effect.Effect.Success<ReturnType<typeof makeHttpClientService>>
 >() {
+  // eslint-disable-next-line ts/explicit-function-return-type
   static Live = (config: HttpClientConfig) =>
     Layer.effect(HttpClientService, makeHttpClientService(config))
 }

@@ -1,9 +1,9 @@
-import RottenTomatoeService from '@/services/RottenTomatoeService'
 import * as cheerio from 'cheerio'
 import { Effect } from 'effect'
-
 import _ from 'lodash'
-import type { TopCritics } from '@/types'
+
+import RottenTomatoeService from '../../services/RottenTomatoeService'
+import type { TopCritics } from '../../types'
 
 const { load } = cheerio
 const { defaultTo, map, trimStart } = _
@@ -36,6 +36,7 @@ function parser(element: cheerio.Element): TopCritics {
   }
 };
 
+// eslint-disable-next-line ts/explicit-function-return-type
 function helper(html: string) {
   return Effect.gen(function* () {
     const result = yield * Effect.async<TopCritics[], Error>((callback) => {
@@ -57,6 +58,7 @@ function helper(html: string) {
   }).pipe(Effect.runPromise)
 }
 
+// eslint-disable-next-line ts/explicit-function-return-type
 export default async (id: string) => {
   const htmlResponse = await RottenTomatoeService.getTopCritics(id)
 

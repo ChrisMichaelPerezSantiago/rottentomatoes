@@ -1,10 +1,10 @@
-import RottenTomatoeService from '@/services/RottenTomatoeService'
-import Toolkit from '@/utils/Toolkit'
 import * as cheerio from 'cheerio'
-
 import { Effect } from 'effect'
 import _ from 'lodash'
-import type { ExtraContent } from '@/types'
+
+import RottenTomatoeService from '../../services/RottenTomatoeService'
+import Toolkit from '../../utils/Toolkit'
+import type { ExtraContent } from '../../types'
 
 const { load } = cheerio
 const { defaultTo, trimStart, isEmpty } = _
@@ -212,6 +212,7 @@ function parser(html: string): ExtraContent {
   }
 }
 
+// eslint-disable-next-line ts/explicit-function-return-type
 function helper(html: string) {
   return Effect.gen(function* () {
     const result = yield * Effect.async<ExtraContent, Error>((callback) => {
@@ -230,6 +231,7 @@ function helper(html: string) {
   }).pipe(Effect.runPromise)
 }
 
+// eslint-disable-next-line ts/explicit-function-return-type
 export default async (id: string) => {
   const htmlResponse = await RottenTomatoeService.getExtraContent(id)
 
