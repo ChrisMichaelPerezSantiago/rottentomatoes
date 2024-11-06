@@ -52,8 +52,13 @@ function helper(html: string) {
           const results = map(rows, parser)
           callback(Effect.succeed(results))
         },
-        catch: (error: Error) => {
-          callback(Effect.fail(error))
+        catch: (error: unknown) => {
+          if (error instanceof Error) {
+            callback(Effect.fail(error))
+          }
+          else {
+            callback(Effect.fail(new Error('An unknown error occurred')))
+          }
         },
       }).pipe(Effect.runPromise)
     })

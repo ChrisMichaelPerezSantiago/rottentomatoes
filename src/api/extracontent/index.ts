@@ -220,8 +220,13 @@ function helper(html: string) {
           const result = parser(html)
           callback(Effect.succeed(result))
         },
-        catch: (error: Error) => {
-          callback(Effect.fail(error))
+        catch: (error: unknown) => {
+          if (error instanceof Error) {
+            callback(Effect.fail(error))
+          }
+          else {
+            callback(Effect.fail(new Error('An unknown error occurred')))
+          }
         },
       }).pipe(Effect.runPromise)
     })

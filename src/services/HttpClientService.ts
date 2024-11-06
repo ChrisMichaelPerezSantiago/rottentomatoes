@@ -36,9 +36,14 @@ function makeHttpClientService(config: HttpClientConfig) {
 
           return responseHandlers[responseType]()
         },
-        catch: (error: Error) => {
-          console.error(`[makeRequest]: Error response:`, error)
-          throw error
+        catch: (error: unknown) => {
+          if (error instanceof Error) {
+            console.error(`[makeRequest]: Error response:`, error)
+            throw error
+          }
+          else {
+            throw new TypeError('[makeRequest]: An unknown error occurred')
+          }
         },
       })
 
