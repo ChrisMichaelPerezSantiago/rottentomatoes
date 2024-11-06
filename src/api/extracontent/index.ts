@@ -62,6 +62,30 @@ function parser(html: string): ExtraContent {
     }
   }).get()
 
+  const episodes = $('tile-episode').map((_, el) => {
+    const idStr = defaultTo($(el).attr('href'), null)
+    const image = defaultTo($(el).find('rt-img').attr('src'), null)
+    const title = defaultTo($(el).find('rt-text[slot="title"]').text().trim(), null)
+
+    // Parsing airDate: e.g., "Aired Oct 27, 2024"
+    const airDateStr = $(el).find('rt-text[data-qa="episode-air-date"]').text().trim()
+    const airDateMatch = airDateStr.match(/Aired (\w+ \d{1,2}, \d{4})/) // Extract the date (e.g., Oct 27, 2024)
+    const airDate = airDateMatch ? airDateMatch[1] : null
+
+    const episodeNumber = $(el).find('rt-text[data-qa="episode-label"]').text().trim()
+    const description = defaultTo($(el).find('rt-text[slot="description"]').text().trim(), null)
+    const id = idStr ? trimStart(idStr, '/') : null
+
+    return {
+      id,
+      title,
+      episodeNumber,
+      airDate,
+      description,
+      image,
+    }
+  }).get()
+
   const producer = defaultTo(
     $('div[data-qa="item"]')
       .filter((_, el) => $(el).find('rt-text[data-qa="item-label"]').text().includes('Producer'))
@@ -171,6 +195,7 @@ function parser(html: string): ExtraContent {
     director,
     producer,
     seasons,
+    episodes,
     screenwriter,
     distributor,
     productionCompanies,
@@ -189,7 +214,7 @@ function parser(html: string): ExtraContent {
 
 function helper(html: string) {
   return Effect.gen(function* () {
-    const result = yield * Effect.async<ExtraContent, Error>((callback) => {
+    const result = yield* Effect.async<ExtraContent, Error>((callback) => {
       Effect.try({
         try: async () => {
           const result = parser(html)

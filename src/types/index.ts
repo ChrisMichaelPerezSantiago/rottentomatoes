@@ -120,6 +120,16 @@ const ExtraContentSchema = Schema.Struct({
   director: Schema.NullOr(Schema.Array(Schema.String)),
   producer: Schema.NullOr(Schema.Array(Schema.String)),
   seasons: Schema.NullOr(Schema.Array(SeasonSchema)),
+  episodes: Schema.Array(
+    Schema.Struct({
+      id: Schema.NullOr(Schema.String),
+      title: Schema.NullOr(Schema.String),
+      episodeNumber: Schema.NullOr(Schema.String),
+      airDate: Schema.NullOr(Schema.String),
+      description: Schema.NullOr(Schema.String),
+      image: Schema.NullOr(Schema.String),
+    })
+  ),
   screenwriter: Schema.NullOr(Schema.Array(Schema.String)),
   distributor: Schema.NullOr(Schema.String),
   productionCompanies: Schema.NullOr(Schema.Array(Schema.String)),

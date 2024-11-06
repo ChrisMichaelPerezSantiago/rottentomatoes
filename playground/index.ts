@@ -3,7 +3,7 @@
 //   console.log(rows)
 // })()
 
-import { browse } from "@/index"
+import { browse, getExtraContent } from "@/index"
 
 // (async function () {
 //   const row = await getExtraContent('m/harry_potter_and_the_deathly_hallows_part_2')
@@ -20,18 +20,23 @@ import { browse } from "@/index"
 //   console.log(row)
 // })()
 
-(async function () {
-  const rows = await browse({
-    categories: 'movies_in_theaters',
-    genres: ['action', 'comedy'],
-    ratings: ['pg_13'],
-    audience: ['verified_hot'],
-    critics: ['certified_fresh'],
-    affiliates: ['netflix'],
-    sortBy: 'sort:newest',
-    pagination: {
-      page: 1,
-    },
-  })
-  console.log(rows)
-})()
+// (async function () {
+//   const rows = await browse({
+//     categories: 'movies_in_theaters',
+//     genres: ['action', 'comedy'],
+//     ratings: ['pg_13'],
+//     audience: ['verified_hot'],
+//     critics: ['certified_fresh'],
+//     affiliates: ['netflix'],
+//     sortBy: 'sort:newest',
+//     pagination: {
+//       page: 1,
+//     },
+//   })
+//   console.log(rows)
+// })()
+
+// (async function () {
+//   const row = await getExtraContent('tv/lioness/s02')
+//   console.log(row)
+// })()
