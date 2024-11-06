@@ -10,6 +10,59 @@ Project in progress ...
 
 # 📚 Documentation
 
+### Browse Function Documentation
+
+The `browse` function retrieves a list of media items based on specified filter criteria. This can include ratings, genres, categories, and other parameters defined in the `BrowseFilterSchema`.
+
+#### Usage Example
+
+```typescript
+const filter = {
+  categories: 'movies_in_theaters',
+  genres: ['action', 'comedy'],
+  ratings: ['pg_13'],
+  audience: ['verified_hot'],
+  critics: ['certified_fresh'],
+  affiliates: ['netflix'],
+  sortBy: 'sort:newest',
+  pagination: {
+    page: 1
+  },
+};
+const results = await browse(filter);
+```
+
+## Browse Filter Schema
+The `BrowseFilterSchema` defines the structure of the data used in the `browse` function.
+
+| Field        | Type                       | Possible Values                                                      | Description                                                              |
+|--------------|----------------------------|---------------------------------------------------------------------|--------------------------------------------------------------------------|
+| `categories` | `BrowseCategories`         | `'movies_in_theaters', 'movies_at_home', 'movies_coming_soon', 'tv_series_browse'` | The selected category to filter media items. You can choose one.         |
+| `genres`     | `Array<BrowseGenre>`        | `['action', 'adventure', 'animation', 'biography', 'comedy', 'crime', 'documentary', 'drama', 'entertainment', 'faith_and_spirituality', 'fantasy', 'game_show', 'health_and_wellness', 'history', 'holiday', 'horror', 'house_and_garden', 'kids_and_family', 'lgbtq', 'music', 'musical', 'mystery_and_thriller', 'nature', 'news', 'reality', 'romance', 'sci_fi', 'short', 'soap', 'special_interest', 'sports', 'stand_up', 'talk_show', 'travel', 'variety', 'war', 'western']` | A list of genres to filter media items.                                 |
+| `ratings`    | `Array<BrowseRating>`       | `['g', 'pg', 'pg_13', 'r', 'nc_17', 'nr', 'ur']`                    | A list of ratings to filter media items (e.g., `['pg_13']`).             |
+| `audience`   | `Array<BrowseAudience>`     | `['spilled', 'upright', 'verified_hot']`                             | A list of audience types to filter media items.                          |
+| `critics`    | `Array<BrowseCritic>`       | `['certified_fresh', 'fresh', 'rotten']`                            | A list of critic ratings to filter media items.                          |
+| `affiliates` | `Array<BrowseAffiliate>`    | `['apple-tv-plus', 'disney-plus', 'hulu', 'netflix', 'paramount-plus', 'peacock', 'prime-video']` | A list of affiliates to filter media items.                             |
+| `sortBy`     | `BrowseSortBy`             | `'sort:popular', 'sort:newest', 'sort:top_box_office', 'sort:a_z', 'sort:critic_highest', 'sort:critic_lowest', 'sort:audience_highest', 'sort:audience_lowest'` | The sort option for the results. Choose one value as a string.           |
+| `pagination` | `BrowsePagination`         | `{ page: number }`                                   | An object specifying pagination options such as `page` and `limit`.     |
+
+
+### Browse Response Schema
+
+The response from the `browse` function follows the structure outlined below, which includes media details such as the ID, title, scores, media type, and more.
+
+| Field           | Type                        | Description                                                      |
+|-----------------|-----------------------------|------------------------------------------------------------------|
+| `id`            | `NullOr(String)`             | The unique identifier for the media item. May be `null` if not available. |
+| `title`         | `NullOr(String)`             | The title of the media item. May be `null` if not available.    |
+| `criticsScore`  | `NullOr(NumberFromString)`   | The critic's score, if available, parsed as a number from a string. May be `null` if not available. |
+| `audienceScore` | `NullOr(NumberFromString)`   | The audience score, if available, parsed as a number from a string. May be `null` if not available. |
+| `mediaType`     | `NullOr(String)`             | The type of media (e.g., "movie" or "tv"). May be `null` if not available. |
+| `poster`        | `NullOr(String)`             | The URL of the media poster image. May be `null` if not available. |
+| `releaseDate`   | `String`                     | The release date of the media item, formatted as a string.       |
+
+
+
 ## Search for Movies or TV Shows
 Utilize the search function to find movies or TV shows by their title. This function returns a list of relevant results based on the search query.
 
@@ -20,7 +73,7 @@ const q = 'Harry Potter and the deathly hallows 2'
 const results = await search(q)
 ```
 
-## Search Schema
+## Search Response Schema
 
 The `SearchSchema` defines the structure of the data returned by the search API. Below is a detailed description of each field within the schema:
 
@@ -44,7 +97,7 @@ const id = 'm/harry_potter_and_the_deathly_hallows_part_2'
 const result = await getExtraContent(id)
 ```
 
-## ExtraContent Schema
+## ExtraContent Response Schema
 
 The `ExtraContentSchema` defines the structure for the additional content retrieved for a media item. Below are the details of each field in the schema:
 
@@ -82,7 +135,7 @@ const id = 'm/harry_potter_and_the_deathly_hallows_part_2'
 const row = await getTopCritics(id)
 ```
 
-## TopCritics Schema
+## TopCritics Response Schema
 
 The `TopCriticsSchema` defines the structure for top critic reviews of a specific media item. Each field provides details about a critic's review, including the critic's identity, publication, and additional context for the review.
 
@@ -143,7 +196,7 @@ The critic's biographical information is captured as follows:
 | `publications`    | `NullOr(Array(NullOr(String)))` | List of publications the critic is associated with.            |
 | `criticsGroup`    | `NullOr(String)`           | Name of the critics' group or association.                         |
 
-### Full Schema Structure
+### Full Response Schema Structure
 
 The `CriticsSchema` combines both the `bio` and `reviews` data structures:
 
