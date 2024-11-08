@@ -51,25 +51,21 @@ export default class Toolkit {
 
   static buildBrowseFilter = ({ categories, genres, ratings, audience, critics, affiliates, sortBy, pagination }: BrowseFilter): string => {
     const categorySegment = defaultTo(`${categories}`, null)
+    const genresSegment = genres ? defaultTo(`genres:${join(genres, ',')}`, null) : null
+    const ratingsSegment = ratings ? defaultTo(`ratings:${join(ratings, ',')}`, null) : null
+    const audienceSegment = audience ? defaultTo(`audience:${join(audience, ',')}`, null) : null
+    const criticsSegment = critics ? defaultTo(`critics:${join(critics, ',')}`, null) : null
+    const affiliatesSegment = affiliates ? defaultTo(`affiliates:${join(affiliates, ',')}`, null) : null
     const sortSegment = sortBy
 
-    const generateSegment = (key: string, values: string[] | null): string | null =>
-      values && !isEmpty(values) ? `${key}:${join(values, ',')}` : null
-
-    const filterSegments = {
-      genres,
-      ratings,
-      audience,
-      critics,
-      affiliates,
-    }
-
-    const optionalFilterSegments = Object.keys(filterSegments).reduce((acc, key) => {
-      const segment = generateSegment(key, filterSegments[key])
-      if (segment)
-        acc.push(segment)
-      return acc
-    }, [] as string[])
+    const segments = [
+      genresSegment,
+      ratingsSegment,
+      audienceSegment,
+      criticsSegment,
+      affiliatesSegment,
+      sortSegment,
+    ]
 
     let query = null
 
@@ -79,7 +75,7 @@ export default class Toolkit {
       query = compact([categorySegment, sortSegment]).join('/')
     }
     else {
-      query = `${categorySegment}/${compact(optionalFilterSegments.concat(sortSegment)).join('~')}`
+      query = `${categorySegment}/${compact(segments).join('~')}`
     }
 
     return `${query}?${Toolkit.buildQuery({ page: pagination.page })}`
