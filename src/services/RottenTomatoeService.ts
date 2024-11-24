@@ -1,8 +1,8 @@
-import { Effect } from 'effect'
+import type { CriticMediaType, SearchURLParams } from '../types'
 
+import { Effect } from 'effect'
 import Toolkit from '../utils/Toolkit'
 import HttpClientService from './HttpClientService'
-import type { CriticMediaType, SearchURLParams } from '../types'
 
 const { buildQuery } = Toolkit
 

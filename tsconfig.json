@@ -1,15 +1,11 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": ["ESNext"],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "noEmit": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "outDir": "./dist",
     "esModuleInterop": true,
-    "skipDefaultLibCheck": true,
     "skipLibCheck": true
-  }
+  },
+  "exclude": ["dist", "node_modules"]
 }

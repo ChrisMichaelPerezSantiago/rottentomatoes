@@ -2,7 +2,7 @@
   "name": "unofficial-rottentomatoes",
   "type": "module",
   "version": "1.0.13",
-  "packageManager": "pnpm@9.9.0",
+  "packageManager": "yarn@1.22.22",
   "description": "This unofficial library provides access to movie and TV show information from Rotten Tomatoes. It enables users to retrieve various details such as ratings, reviews, and additional insights, facilitating seamless interaction with Rotten Tomatoes data.",
   "author": "chrisperezsantiago1@gmail.com",
   "license": "MIT",
@@ -40,36 +40,29 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
+      "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./package.json": "./package.json"
   },
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*",
-        "./dist/index.d.ts"
-      ]
-    }
-  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
-    "dev": "unbuild --stub",
+    "build": "tsup",
     "lint": "eslint .",
     "prepublishOnly": "nr build",
     "release": "bumpp && npm publish",
-    "start": "esno src/index.ts",
-    "playground": "esno playground/index.ts",
+    "start": "tsx src/index.ts",
+    "playground": "tsx playground/index.ts",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
   },
+  "dependencies": {},
   "devDependencies": {
     "@antfu/eslint-config": "^3.3.2",
     "@antfu/ni": "^0.23.0",
@@ -82,19 +75,19 @@
     "cheerio": "^1.0.0",
     "effect": "^3.9.2",
     "eslint": "^9.9.1",
-    "esno": "^4.7.0",
     "lint-staged": "^15.2.10",
     "lodash": "^4.17.21",
-    "pnpm": "^9.9.0",
     "qs": "^6.13.0",
     "simple-git-hooks": "^2.11.1",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
     "typescript": "^5.5.4",
-    "unbuild": "^2.0.0",
     "vite": "^5.4.3",
     "vitest": "^2.0.5"
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm lint-staged"
+    "pre-commit": "yarn lint-staged"
   },
   "lint-staged": {
     "*": "eslint --fix"

@@ -1,9 +1,9 @@
+import type { TopCritics } from '../../types'
 import * as cheerio from 'cheerio'
 import { Effect } from 'effect'
-import _ from 'lodash'
 
+import _ from 'lodash'
 import RottenTomatoeService from '../../services/RottenTomatoeService'
-import type { TopCritics } from '../../types'
 
 const { load } = cheerio
 const { defaultTo, map, trimStart } = _

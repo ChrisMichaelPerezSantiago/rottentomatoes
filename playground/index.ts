@@ -3,6 +3,8 @@
 //   console.log(rows)
 // })()
 
+// import { getExtraContent } from '../dist/index.cjs'
+
 // (async function () {
 //   const row = await getExtraContent('m/harry_potter_and_the_deathly_hallows_part_2')
 //   console.log(row)

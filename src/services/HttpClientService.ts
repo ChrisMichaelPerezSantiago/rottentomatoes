@@ -1,6 +1,6 @@
-import { Context, Effect, Layer } from 'effect'
-
 import type { HttpClientConfig, ResponseType } from '../types'
+
+import { Context, Effect, Layer } from 'effect'
 
 function makeHttpClientService(config: HttpClientConfig) {
   return Effect.gen(function* () {

@@ -1,10 +1,10 @@
+import type { SearchResult } from '../../types'
 import * as cheerio from 'cheerio'
 import { Effect } from 'effect'
-import _ from 'lodash'
 
+import _ from 'lodash'
 import RottenTomatoeService from '../../services/RottenTomatoeService'
 import Toolkit from '../../utils/Toolkit'
-import type { SearchResult } from '../../types'
 
 const { load } = cheerio
 const { defaultTo, map, split, parseInt, includes } = _

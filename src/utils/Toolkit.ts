@@ -1,7 +1,7 @@
-import _ from 'lodash'
-import qs from 'qs'
-
 import type { BrowseFilter } from '../types'
+import _ from 'lodash'
+
+import qs from 'qs'
 
 const { chain, get, size, defaultTo, compact, join, isEmpty } = _
 

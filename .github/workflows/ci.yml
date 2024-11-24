@@ -20,16 +20,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          run_install: false
       - name: Set node ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: pnpm
+          cache: yarn
 
-      - run: pnpm i -g @antfu/ni
-      - run: nci
+      - run: yarn global add @antfu/ni
+      - run: ni
       - run: nr build
       - run: nr test
